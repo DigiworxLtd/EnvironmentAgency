@@ -16,7 +16,7 @@ var utils = require('./lib/utils.js')
 var packageJson = require('./package.json')
 
 // Grab environment variables specified in Procfile or as Heroku config vars
-var releaseVersion = '0.1 last updated 29/11/17' //packageJson.version
+var releaseVersion = '0.2 last updated 30/11/17' //packageJson.version
 var username = process.env.USERNAME
 var password = process.env.PASSWORD
 var env = process.env.NODE_ENV || 'development'
