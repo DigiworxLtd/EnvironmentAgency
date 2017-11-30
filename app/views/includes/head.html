@@ -1,0 +1,134 @@
+<!--[if lte IE 8]><link href="/public/stylesheets/application-ie8.css" rel="stylesheet" type="text/css" /><![endif]-->
+<!--[if gt IE 8]><!--><link href="/public/stylesheets/application.css" media="screen" rel="stylesheet" type="text/css" /><!--<![endif]-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+  <script type="text/javascript">
+
+      // Load Charts types.
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.load('current', {'packages': ['sankey']});
+      google.charts.load('current', {'packages':['treemap']});
+      
+
+      // Draw Charts
+      google.charts.setOnLoadCallback(FloodlineTransfers);
+      google.charts.setOnLoadCallback(FloodlineReasonsForTransfer);
+      google.charts.setOnLoadCallback(callOutcomes);
+
+
+      // FloodlineTransfers
+      function FloodlineTransfers() {
+        var queryString = encodeURIComponent('SELECT A, B, C');
+
+ // Get data from google sheets
+ var query = new google.visualization.Query(
+  'https://docs.google.com/spreadsheets/d/174wtONMgh3vwQaczVVwdFu_D7MKvYCXi5RS1yHMGl8U/gviz/tq?gid=0' + queryString);
+ query.send(handleQueryResponse);
+}
+
+
+function handleQueryResponse(response) {
+  if (response.isError()) {
+    alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+  var data = response.getDataTable();
+  var chart = new google.visualization.Sankey(document.getElementById('Callflow'));
+  chart.draw(data, { height: 800, width: 800, sankey: { node: { nodePadding: 20 } }, });
+}
+
+ // FloodlineReasonsForTransfer-----------------------------------------------------------------------------------------------------
+ function FloodlineReasonsForTransfer() {
+  var queryString = encodeURIComponent('SELECT A, B, C, D');
+
+ // Get data from google sheets
+ var query = new google.visualization.Query(
+  'https://docs.google.com/spreadsheets/d/1nybxxktEWmfWnt5ZfrlyER_seZ_F8JbrNrPCaFM0emU/gviz/tq?gid=0' + queryString);
+ query.send(handleQueryResponse2);
+}
+
+
+function handleQueryResponse2(response) {
+  if (response.isError()) {
+    alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+// Display options 
+var data = response.getDataTable();
+var chart = new google.visualization.TreeMap(document.getElementById('FloodlineReasonsForTransfer'));
+chart.draw(data, { minColor: '#e7711c',
+  midColor: '#fff',
+  maxColor: '#4374e0',
+  showScale: true,
+  height: 400,
+  width:800,
+  generateTooltip: showFullTooltip });
+
+// Tool tip display options
+chart.draw(data, options);
+
+function showFullTooltip(row, size, value) {
+  return '<div style="background:#fd9; padding:10px; border-style:solid">' +
+  '<span style="font-family:Courier:"><b>' + data.getValue(row, 0) + 
+  '<br></b> ' + ' ' + ' ' + ' ' +
+  'Total:' + data.getValue(row, 2) + ' <br>' +  '</span><br>' 
+  data.getColumnLabel(2) +
+  ' (total value of this cell and its children): ' + size + '<br>' +
+  data.getColumnLabel(3) + ': ' + value + ' </div>';
+}
+
+
+
+}
+
+// CallOutcomes-----------------------------------------------------------------------------------------------------
+       
+function callOutcomes() {
+  var queryString = encodeURIComponent('SELECT A, B, C, D');
+
+ // Get data from google sheets
+ var query = new google.visualization.Query(
+  'https://docs.google.com/spreadsheets/d/1u24nZvo6m18qsj9vfQvAKDD4TEtEFgpWRA_ZSWmkyuY/gviz/tq?gid=0' + queryString);
+ query.send(handleQueryResponse3);
+}
+
+
+function handleQueryResponse3(response) {
+  if (response.isError()) {
+    alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+// Display options 
+var data = response.getDataTable();
+var chart = new google.visualization.TreeMap(document.getElementById('CallOutcomes'));
+chart.draw(data, { minColor: '#e7711c',
+  midColor: '#fff',
+  maxColor: '#4374e0',
+  showScale: true,
+  height: 400,
+  width:800,
+  generateTooltip: showFullTooltip });
+
+// Tool tip display options
+chart.draw(data, options);
+
+function showFullTooltip(row, size, value) {
+  return '<div style="background:#fd9; padding:10px; border-style:solid">' +
+  '<span style="font-family:Courier:"><b>' + data.getValue(row, 0) + 
+  '<br></b> ' + ' ' + ' ' + ' ' +
+  'Total:' + data.getValue(row, 2) + ' <br>' +  '</span><br>' 
+  data.getColumnLabel(2) +
+  ' (total value of this cell and its children): ' + size + '<br>' +
+  data.getColumnLabel(3) + ': ' + value + ' </div>';
+}
+
+}
+
+
+// Next-----------------------------------------------------------------------------------------------------
+       
+
+</script>
