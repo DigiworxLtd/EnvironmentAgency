@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block page_title %}
+  GOV.UK prototype kit
+{% endblock %}
+
+{% block content %}
+
+<main id="content" role="main">
+  <div class="grid-row">
+
+			
+    <div class="column-full">
+
+      <h1 class="heading-xlarge">
+        Web data analysis
+        <span class="heading-secondary">{{releaseVersion}}</span>
+			</h1>{{releaseVersion | log }}
+			
+			
+           
+			<h2 class="heading-large">What's the problem we're trying to solve and how does this analysis help?</h2>
+			<p>Unlike Floodline, the flood digital products for England, Wales and Scotland are separate services. The analysis
+				displayed here provides insight into the behaviour of citizens using flood digital services which has been used to 
+				inform <a href="recomendations.html">recommendations</a> for an improved user experience. 
+	
+						
+					<h2 class="heading-medium">Welsh location searches completed on GOV.UK </h2>
+			
+				<p>
+					The below image is a representation of the volume and location of address searches completed on GOV.UK during storm Brian on the 21st October 2017. The results indicate that citizens whom wish to check immediate flood risk for an area of interest in Wales used the GOV.UK service. 
+					
+				</p>			
+
+				<p>The raw data used to generate the below graphic is available <a href="">here</a> and shows a popular location of interest for Welsh searches during storm Brian was the Newport area as highlighted by the red box on the graphic.  </p>
+				
+				<img src="/public/images/Wales.png">
+
+						
+
+    </div>
+  </div>
+</main>
+
+{% endblock %}
+
+
